@@ -4,20 +4,42 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap" rel="stylesheet">
     <title>Rock-Paper-Scissors</title>
 </head>
 <body>
-   <div id="top"></div>
-   <div id="middle">
-       <div id="middle-left">
-           <div class="rps-choices"></div>
-       </div>
-       <div id="middle-right">
-           <div class="rps-choices"></div>
-        </div>
-   </div>
-   <div id="bottom">
-   </div>
+   <div class="main-container">
+        <div class="header">Rock<br>Paper<br> Scissors</div>
+        <img src="assets/stone.png" class="rock">
+        <img src="assets/toilet-paper.png" class="paper">
+        <img src="assets/scissors.png" class="scissors">
+        <div class="player-lives"></div>
+        <div class="computer-lives"></div>
+        <div class="footer"></div>
+    </div>
    <script src="script.js"></script> 
 </body>
 </html>
+
+
+<!-- 
+    
+    rock png by Icongeek26
+    paper png by Freepik
+    scissors png by Freepik
+
+    .header { grid-area: 1 / 1 / 2 / 6; }
+    .icon-container { grid-area: 2 / 2 / 5 / 5; }
+    .rock { grid-area: 2 / 3 / 3 / 4; }
+    .paper { grid-area: 3 / 3 / 4 / 4; }
+    .scissors { grid-area: 4 / 3 / 5 / 4; }
+    .player-lives { grid-area: 2 / 1 / 3 / 2; }
+    .computer-lives { grid-area: 2 / 5 / 3 / 6; }
+    .footer { grid-area: 5 / 1 / 6 / 6; }
+
+
+
+-->
