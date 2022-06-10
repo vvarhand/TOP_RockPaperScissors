@@ -115,12 +115,12 @@ const declareWinner = function(player, computer) {
 }
 
 
-while (GAME_COUNT < 5)
-{
-    runGame();
-}
+//while (GAME_COUNT < 5)
+//{
+    //runGame();
+//}
 
-if (GAME_COUNT == 5)
-{
-    console.log(declareWinner());
-}
+//if (GAME_COUNT == 5)
+//{
+    //console.log(declareWinner());
+//}
