@@ -11,14 +11,6 @@ let HUMAN_SCORE = 0;
 let COMP_SCORE = 0;
 
 // Helper functions 
-const checkChoiceCorrectness = function(human) {
-        return CHOICE_LIST.includes(human);
-}
-
-const capitalizeWord = function(word)
-{
-    return word.charAt(0).toUpperCase() + word.slice(1);
-}
 
 // Choice functions 
 const humanChoice = function() {
@@ -114,13 +106,19 @@ const declareWinner = function(player, computer) {
     return `${winner} won!`
 }
 
+const images = document.querySelector('.interactiveImg');
 
-//while (GAME_COUNT < 5)
-//{
-    //runGame();
-//}
 
-//if (GAME_COUNT == 5)
-//{
-    //console.log(declareWinner());
-//}
+/* Deprecated functions 
+
+const checkChoiceCorrectness = function(human) {
+        return CHOICE_LIST.includes(human);
+}
+
+const capitalizeWord = function(word)
+{
+    return word.charAt(0).toUpperCase() + word.slice(1);
+}
+
+
+*/
