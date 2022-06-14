@@ -1,0 +1,185 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    --background-color: #9c9f84;
+    --darker-green: #5c755E;
+    --light-brown: #a97d5d;
+    --beige: #f7dcb4;
+    --font-color: whitesmoke;
+    --step--2: clamp(0.91rem, calc(0.89rem + 0.10vw), 0.96rem);
+    --step--1: clamp(1.09rem, calc(1.05rem + 0.21vw), 1.20rem);
+    --step-0: clamp(1.31rem, calc(1.24rem + 0.37vw), 1.50rem);
+    --step-1: clamp(1.58rem, calc(1.46rem + 0.59vw), 1.88rem);
+    --step-2: clamp(1.89rem, calc(1.71rem + 0.89vw), 2.34rem);
+    --step-3: clamp(2.27rem, calc(2.01rem + 1.29vw), 2.93rem);
+    --step-4: clamp(2.72rem, calc(2.36rem + 1.83vw), 3.66rem);
+    --step-5: clamp(3.27rem, calc(2.75rem + 2.56vw), 4.58rem);
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Kdam Thmor Pro', sans-serif;
+    background-color: whitesmoke;
+    color: var(--font-color);
+}
+
+.startscreen {
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: var(--darker-green);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+    z-index: 999;
+    transition: all 0.7s linear;
+}
+
+.btn-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: inherit;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.game-btn {
+    width: 5em;
+    height: 1.7em;
+    border: 1.5px solid white;
+    padding-bottom: 1rem;
+    background: none;
+    color: whitesmoke;
+    margin: 1em 1.5em;
+    text-align: center;
+    font: inherit;
+    font-size: 16px;
+    border-radius: 10px;
+}
+
+.yes:hover  {
+    background-color: var(--beige);
+    color: var(--darker-green);
+    transition: all 0.2s linear;
+}
+
+.no:hover  {
+    background-color: var(--beige);
+    color: rgb(188, 76, 76);
+    transition: all 0.2s linear;
+}
+
+.main-container {
+    height: 100vh;
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1.5fr repeat(4, 1fr);
+    grid-column-gap: 13px;
+    grid-row-gap: 3.5rem;
+    z-index: 1;
+}
+
+.header { 
+    padding-top: 0.2em;
+    justify-self: center;
+    align-self: center;
+    justify-content: center;
+    font-weight: 400;
+    border-radius: 18px;
+    text-align: center;
+    color: var(--darker-green);
+    width: max(var(--step--1), 35vw);
+    font-size: max(var(--step--2), var(--step-2));
+}
+
+.interactiveImg {
+    max-height: clamp(50px, 125px, 175px);
+    transition: border 0.2s linear 0.1s;
+}
+
+.rock {
+    content: url('assets/stone.png');
+}
+
+.paper {
+    content: url('assets/toilet-paper.png');
+}
+
+.scissors {
+    content: url('assets/scissors.png');
+}
+
+.interactiveImg:hover {
+    border: 3px solid var(--darker-green);
+    border-radius: 25px;
+    padding: 0.5em;
+
+}
+
+.header { grid-area: 1 / 1 / 2 / 6; }    
+.icon-container { grid-area: 2 / 2 / 5 / 5; }
+.rock { 
+    grid-area: 2 / 3 / 3 / 4; 
+}
+.paper { 
+    grid-area: 3 / 3 / 4 / 4; 
+}
+.scissors { 
+    grid-area: 4 / 3 / 5 / 4; 
+}
+.player-lives {
+    grid-area: 1 / 1 / 2 / 3; 
+}
+
+.player-lives .game-on {
+    color: var(--light-brown);
+    align-self: flex-end;
+    margin-left: 2em;
+    text-align: center;
+}
+
+.computer-lives { 
+    grid-area: 1 / 4 / 2 / 6; 
+}
+
+.computer-lives .game-on {
+    color: var(--light-brown);
+    align-self: flex-end;
+    margin-right: 2em;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+.footer {
+    grid-area: 5 / 1 / 6 / 6; 
+    background-color: #5c755E;    
+    height: min(5vh, 15vh);
+    width: 100vw;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-self: flex-end;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.7em;
+    
+}
