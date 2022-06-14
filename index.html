@@ -11,16 +11,23 @@
     <title>Rock-Paper-Scissors</title>
 </head>
 <body>
-   <div class="main-container">
-        <div class="header">Rock<br>Paper<br> Scissors</div>
-        <img src="assets/stone.png" class="interactiveImg rock">
-        <img src="assets/toilet-paper.png" class="interactiveImg paper">
-        <img src="assets/scissors.png" class="interactiveImg scissors">
-        <div class="player-lives"></div>
-        <div class="computer-lives"></div>
-        <footer class="footer">created by Brechko M. during The Odin Project 2022</footer>
+    <div class="startscreen">
+        <div class="startscreentext">Would you like to start?</div>
+        <div class="btn-wrapper">
+            <button class="game-btn yes">YES</button>
+            <button class="game-btn no">NO</button>
+        </div>
     </div>
-   <script src="script.js"></script> 
+    <div class="main-container">
+            <div class="header">Rock<br>Paper<br> Scissors</div>
+            <div class="interactiveImg rock"></div>
+            <div class="interactiveImg paper"></div>
+            <div class="interactiveImg scissors"></div>
+            <div class="counter player-lives">Player Lives:<br>5</div>
+            <div class="counter computer-lives"></div>
+            <footer class="footer">created by Brechko M. during The Odin Project 2022</footer>
+    </div>
+<script src="script.js"></script> 
 </body>
 </html>
 

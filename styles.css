@@ -22,7 +22,59 @@ body {
     min-height: 100vh;
     margin: 0;
     font-family: 'Kdam Thmor Pro', sans-serif;
+    background-color: whitesmoke;
     color: var(--font-color);
+}
+
+.startscreen {
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: var(--darker-green);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+    z-index: 999;
+    transition: all 0.7s linear;
+}
+
+.btn-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: inherit;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.game-btn {
+    width: 5em;
+    height: 1.7em;
+    border: 1.5px solid white;
+    padding-bottom: 1rem;
+    background: none;
+    color: whitesmoke;
+    margin: 1em 1.5em;
+    text-align: center;
+    font: inherit;
+    font-size: 16px;
+    border-radius: 10px;
+}
+
+.yes:hover  {
+    background-color: var(--beige);
+    color: var(--darker-green);
+    transition: all 0.2s linear;
+}
+
+.no:hover  {
+    background-color: var(--beige);
+    color: rgb(188, 76, 76);
+    transition: all 0.2s linear;
 }
 
 .main-container {
@@ -35,7 +87,7 @@ body {
     grid-template-rows: 1.5fr repeat(4, 1fr);
     grid-column-gap: 13px;
     grid-row-gap: 3.5rem;
-    background-color: whitesmoke;
+    z-index: 1;
 }
 
 .header { 
@@ -51,35 +103,71 @@ body {
     font-size: max(var(--step--2), var(--step-2));
 }
 
-img {
+.interactiveImg {
     max-height: clamp(50px, 125px, 175px);
+    transition: border 0.2s linear 0.1s;
+}
+
+.rock {
+    content: url('assets/stone.png');
+}
+
+.paper {
+    content: url('assets/toilet-paper.png');
+}
+
+.scissors {
+    content: url('assets/scissors.png');
 }
 
 .interactiveImg:hover {
     border: 3px solid var(--darker-green);
     border-radius: 25px;
     padding: 0.5em;
+
 }
 
 .header { grid-area: 1 / 1 / 2 / 6; }    
 .icon-container { grid-area: 2 / 2 / 5 / 5; }
-
-
 .rock { 
     grid-area: 2 / 3 / 3 / 4; 
 }
-
 .paper { 
     grid-area: 3 / 3 / 4 / 4; 
 }
-
 .scissors { 
     grid-area: 4 / 3 / 5 / 4; 
 }
+.player-lives {
+    grid-area: 1 / 1 / 2 / 3; 
+}
+
+.player-lives .game-on {
+    color: var(--light-brown);
+    align-self: flex-end;
+    margin-left: 2em;
+    text-align: center;
+}
+
+.computer-lives { 
+    grid-area: 1 / 4 / 2 / 6; 
+}
+
+.computer-lives .game-on {
+    color: var(--light-brown);
+    align-self: flex-end;
+    margin-right: 2em;
+    text-align: center;
+}
 
 
-.player-lives { grid-area: 2 / 1 / 3 / 2; }
-.computer-lives { grid-area: 2 / 5 / 3 / 6; }
+
+
+
+
+
+
+
 
 .footer {
     grid-area: 5 / 1 / 6 / 6; 

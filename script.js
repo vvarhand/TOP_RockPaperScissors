@@ -6,21 +6,14 @@
 */
 
 const CHOICE_LIST = ['Rock', 'Paper', 'Scissors'];
-let GAME_COUNT = 0;
+//let GAME_COUNT = 0;
 let HUMAN_SCORE = 0;
 let COMP_SCORE = 0;
 
 // Helper functions 
 
 // Choice functions 
-const humanChoice = function() {
-    let human = prompt("Please choose Rock, Paper or Scissors: ");
-    return human.toLowerCase();
-}
-
 const computerChoice = () => CHOICE_LIST[(Math.floor(Math.random() * 10)) % 3];
-
-
 
 
 // Game Logic 
@@ -79,8 +72,6 @@ const winConditions = function(human, computer)
     }
 }
 
-const incrementScore = (player) => {player++};
-
 const runGame = function() 
 {
     let human = capitalizeWord(humanChoice());
@@ -106,18 +97,80 @@ const declareWinner = function(player, computer) {
     return `${winner} won!`
 }
 
-const images = document.querySelector('.interactiveImg');
+const initScores = function() {
+    const counters = document.querySelectorAll('.counter');
+    counters.classList.add('.game-on');
+};
+
+const decrementScore = (player) => {player--};
+
+
+function removeStartScreen() {
+    const startscreen = document.querySelector('.startscreen');
+    const noOtherWayAround = () => startscreen.style.display = 'none';
+    setTimeout(noOtherWayAround,1000);
+}
+
+const buttons = document.querySelectorAll('.game-btn');
+buttons.forEach(btn => btn.addEventListener('focus', removeStartScreen));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* Deprecated functions 
+images.forEach(() => addEventListener('onclick', ))
+
+
 
 const checkChoiceCorrectness = function(human) {
-        return CHOICE_LIST.includes(human);
+    return CHOICE_LIST.includes(human);
 }
+
+
 
 const capitalizeWord = function(word)
 {
     return word.charAt(0).toUpperCase() + word.slice(1);
+}
+
+const humanChoice = function() {
+    let human = prompt("Please choose Rock, Paper or Scissors: ");
+    return human.toLowerCase();
 }
 
 
