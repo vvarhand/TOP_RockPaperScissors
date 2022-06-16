@@ -23,19 +23,17 @@ function computerChoice() {
     return cObj;
     };
 
-function visualizeComputerChoice()
+function visualizeComputerChoice(computerChoiceObject)
 {
-    let comch = computerChoice();
     const main_container = document.querySelector('.main-container');
     const compDiv = document.createElement('div');
-    compDiv.classList.add(comch.choice);
+    compDiv.classList.add(computerChoiceObject.choice);
     compDiv.classList.add('computer');
-    compDiv.textContent = `Computer chose ${comch.choice_string}.`
+    compDiv.textContent = `Computer chose ${computerChoiceObject.choice_string}.`
     main_container.appendChild(compDiv);
-    return comch;
 }
 
-async function makeChoice() {
+function makeChoice() {
     const choices = document.querySelectorAll('.interactiveImg');
     let hObj = {
         choice_name: undefined,
@@ -43,75 +41,86 @@ async function makeChoice() {
     };
 
     choices.forEach(btn => btn.addEventListener('click', 
-    e => {
-        e.target.classList.add('perma-border')
+    e =>  {
+        e.target.classList.add('perma-border');
         hObj.choice_name = e.target.classList[0],
         hObj.choice_class = PLAYER_LIST[e.target.classList[1]]
+        runGame(hObj);
     }));
-    
-    return hObj;
 };
+
+const decrementScore = (player) => {player--};
 
 // Game Logic 
 const winConditions = function(human, computer)
 {
     let winObj = {};
 
-    if (human === computer) 
+    if (human === computer.choice_string) 
     {
         winObj.winner = `Draw! You and computer both chose ${human}`;
+        visualizeComputerChoice(computer);
         return winObj;
     }
 
     switch (human) {
         case "Rock":
-            if (computer === "Scissors") 
+            if (computer.choice_string === "Scissors") 
             {
                 decrementScore(COMP_SCORE);
-                winObj.winner = `You win! ${human} beats ${computer}`;
+                showScores(HUMAN_SCORE, COMP_SCORE);
+                winObj.winner = `You win! ${human} beats ${computer.choice_string}`;
+                visualizeComputerChoice(computer);
                 return winObj;
             }
-            if (computer === "Paper") 
+            if (computer.choice_string === "Paper") 
             {
                 decrementScore(HUMAN_SCORE);
-                winObj.winner = `You lost! ${computer} beats ${human}`;
+                showScores(HUMAN_SCORE, COMP_SCORE);
+                winObj.winner = `You lost! ${computer.choice_string} beats ${human}`;
+                visualizeComputerChoice(computer);
                 return winObj;
             }
             break;
         case "Paper":
-            if (computer === "Rock") 
+            if (computer.choice_string === "Rock") 
             {
                 decrementScore(COMP_SCORE);
-                winObj.winner = `You win! ${human} beats ${computer}`;
+                showScores(HUMAN_SCORE, COMP_SCORE);
+                winObj.winner = `You win! ${human} beats ${computer.choice_string}`;
+                visualizeComputerChoice(computer);
                 return winObj;
             }
-            if (computer === "Scissors") 
+            if (computer.choice_string === "Scissors") 
             {
                 decrementScore(HUMAN_SCORE);
-                winObj.winner = `You lost! ${computer} beats ${human}`;
+                showScores(HUMAN_SCORE, COMP_SCORE);
+                winObj.winner = `You lost! ${computer.choice_string} beats ${human}`;
+                visualizeComputerChoice(computer);
                 return winObj;
             }
             break;
         case "Scissors":
-            if (computer === "Paper") 
+            if (computer.choice_string === "Paper") 
             {
                 decrementScore(COMP_SCORE);
-                winObj.winner = `You win! ${human} beats ${computer}`;
+                showScores(HUMAN_SCORE, COMP_SCORE);
+                winObj.winner = `You win! ${human} beats ${computer.choice_string}`;
+                visualizeComputerChoice(computer);
                 return winObj;
             }
-            if (computer === "Rock") {
+            if (computer.choice_string === "Rock") {
                 decrementScore(HUMAN_SCORE);
-                winObj.winner = `You lost! ${computer} beats ${human}`;
+                showScores(HUMAN_SCORE, COMP_SCORE);
+                winObj.winner = `You lost! ${computer.choice_string} beats ${human}`;
+                visualizeComputerChoice(computer);
                 return winObj;
             }
             break;
         default:
-            console.log("something went wrong?!");
+            console.log("issue in winConditions");
     }
 }
-
-
-const decrementScore = (player) => {player--};
 
 function removeStartScreen_YES() {
     const startscreen = document.querySelector('.startscreen');
@@ -155,17 +164,18 @@ function announceRoundWinner(player, winObj) {
     main_container.appendChild(annDiv);
 }
 
-const runGame =  async () => 
+const runGame =  (human) => 
 {   
-    const hObj = await makeChoice();
-    const cObj = visualizeComputerChoice();
+    const computerChoiceObject = computerChoice();
 
-    //let winObj = winConditions(hObj.choice_name, cObj.choice_string);
-    //announceRoundWinner(hObj, winObj);
+    const winObj = winConditions(human.choice_name, computerChoiceObject);
+    announceRoundWinner(human, winObj);
+
+    //function resetAnimations()
+    //function endGame()
 }
 
-runGame();
-
+makeChoice();
 
 /* Deprecated functions 
 

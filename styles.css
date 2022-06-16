@@ -222,9 +222,13 @@ body {
     border: 2px solid var(--beige);
     background-color: whitesmoke;
     height: 100px;
-    width: 30vw;
+    width: 35vw;
+    font-size: var(--step--2);
     margin-left: 1em;
     border-radius: 25px; 
+    color: var(--darker-green);
+    font-size: medium;
+    text-align: center;
 }
 
 .player-rock {
