@@ -1,177 +1,223 @@
-/*
-    Requirements:
-        - Player (prompt)
-        - Computer (random response to Player prompt)
-        - Game Logic (game loop & win conditions)
-*/
+// GLOBALS ----------------------------------------------
 
-const CHOICE_LIST = ['Rock', 'Paper', 'Scissors'];
-//let GAME_COUNT = 0;
-let HUMAN_SCORE = 0;
-let COMP_SCORE = 0;
+const CHOICE_LIST = ['computer-rock', 'computer-paper', 'computer-scissors'];
+const NAME_LIST = ['Rock', 'Paper', 'Scissors'];
+const PLAYER_LIST = ['player-rock', 'player-paper', 'player-scissors'];
+let HUMAN_SCORE = 5;
+let COMP_SCORE = 5;
 
-// Helper functions 
-
-// Choice functions 
-const computerChoice = () => CHOICE_LIST[(Math.floor(Math.random() * 10)) % 3];
-
-
-// Game Logic 
-const winConditions = function(human, computer)
-{
-    if (human === computer) 
-    {
-        GAME_COUNT++;
-        return `Draw! You and computer both chose ${human}`;
-    }
-
-    switch (human) {
-        case "Rock":
-            if (computer === "Scissors") 
-            {
-                incrementScore(HUMAN_SCORE);
-                GAME_COUNT++;
-                return `You win! ${human} beats ${computer}`;
-            }
-            if (computer === "Paper") 
-            {
-                incrementScore(COMP_SCORE);
-                GAME_COUNT++;
-                return `You lost! ${computer} beats ${human}`;
-            }
-            break;
-        case "Paper":
-            if (computer === "Rock") 
-            {
-                incrementScore(HUMAN_SCORE);
-                GAME_COUNT++;
-                return `You win! ${human} beats ${computer}`;
-            }
-            if (computer === "Scissors") 
-            {
-                incrementScore(COMP_SCORE);
-                GAME_COUNT++;
-                return `You lost! ${computer} beats ${human}`;
-            }
-            break;
-        case "Scissors":
-            if (computer === "Paper") 
-            {
-                incrementScore(HUMAN_SCORE);
-                GAME_COUNT++;
-                return `You win! ${human} beats ${computer}`;
-            }
-            if (computer === "Rock") {
-                incrementScore(COMP_SCORE);
-                GAME_COUNT++;
-                return `You lost! ${computer} beats ${human}`;
-            }
-            break;
-        default:
-            console.log("why?");
-    }
-}
-
-const runGame = function() 
-{
-    let human = capitalizeWord(humanChoice());
-    let computer = computerChoice();    
-
-    if (human === "Q") {
-        console.log("Goodbye!");
-        return;
-    }
-
-    if (checkChoiceCorrectness(human))
-    {
-        console.log(winConditions(human, computer));
-    }
-    else {
-        console.log("Please type in 'Rock', 'Paper' or 'Scissors'!\nEnter 'q' if you want to stop :)");
-        runGame();
-    }
-}
-
-const declareWinner = function(player, computer) {
-    let winner = (player > computer) ? "You" : "Computer";
-    return `${winner} won!`
-}
-
-const initScores = function() {
-    const counters = document.querySelectorAll('.counter');
-    counters.classList.add('.game-on');
-};
-
-const decrementScore = (player) => {player--};
-
-
-function removeStartScreen() {
-    const startscreen = document.querySelector('.startscreen');
-    const noOtherWayAround = () => startscreen.style.display = 'none';
-    setTimeout(noOtherWayAround,1000);
-}
-
-const buttons = document.querySelectorAll('.game-btn');
-buttons.forEach(btn => btn.addEventListener('focus', removeStartScreen));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Deprecated functions 
-images.forEach(() => addEventListener('onclick', ))
-
-
-
-const checkChoiceCorrectness = function(human) {
-    return CHOICE_LIST.includes(human);
-}
-
-
-
+// HELPER FUNCTIONS ----------------------------------------------
 const capitalizeWord = function(word)
 {
     return word.charAt(0).toUpperCase() + word.slice(1);
 }
 
-const humanChoice = function() {
-    let human = prompt("Please choose Rock, Paper or Scissors: ");
-    return human.toLowerCase();
+const decrementScore = function (loser)
+{
+    if (loser === 'COMP') {COMP_SCORE--}
+    else if (loser === 'HUM') {HUMAN_SCORE--}
+    else return;
+}
+
+// CHOICE FUNCTIONS ---------------------------------------------- 
+function computerChoice() { 
+    let random = (Math.floor(Math.random() * 10)) % 3; 
+    let cObj = {
+        choice: CHOICE_LIST[random],
+        choice_string: NAME_LIST[random]
+    }; 
+    
+    return cObj;
+    };
+
+function visualizeComputerChoice(computerChoiceObject)
+{
+    const main_container = document.querySelector('.main-container');
+    const compDiv = document.createElement('div');
+    compDiv.classList.add(computerChoiceObject.choice);
+    compDiv.classList.add('animation', 'computer');
+    const textDiv = document.createElement('div');
+    textDiv.textContent = `Computer chose ${computerChoiceObject.choice_string}.`;
+    compDiv.appendChild(textDiv);
+    main_container.appendChild(compDiv);
+}
+
+function makeChoice() {
+    const choices = document.querySelectorAll('.interactiveImg');
+    let hObj = {
+        choice_name: undefined,
+        choice_class: undefined
+    };
+    showScores(HUMAN_SCORE,COMP_SCORE);
+    choices.forEach(btn => btn.addEventListener('click', 
+    e =>  {
+        hObj.choice_name = e.target.classList[0],
+        hObj.choice_class = PLAYER_LIST[e.target.classList[1]]
+        
+        runGame(hObj);
+
+        if ((HUMAN_SCORE === 0) || (COMP_SCORE === 0))
+        {
+            console.log('it works!');
+            //endGame();
+        }
+    }));
+};
+
+// GAME LOGIC ----------------------------------------------
+const winConditions = function(human, computer)
+{
+    let winObj = {};
+
+    if (human === computer.choice_string) 
+    {
+        winObj.winner = `Draw!`;
+        visualizeComputerChoice(computer);
+        return winObj;
+    }
+
+    switch (human) {
+        case "Rock":
+            if (computer.choice_string === "Scissors") 
+            {
+                winObj.winner = `You win!`;
+                winObj.loser = 'COMP'
+                visualizeComputerChoice(computer);
+                return winObj;
+            }
+            if (computer.choice_string === "Paper") 
+            {
+                winObj.winner = 'You lost!';
+                winObj.loser = 'HUM'
+                visualizeComputerChoice(computer);
+                return winObj;
+            }
+            break;
+        case "Paper":
+            if (computer.choice_string === "Rock") 
+            {
+                winObj.winner = `You win!`
+                winObj.loser = 'COMP'
+                visualizeComputerChoice(computer);
+                return winObj;
+            }
+            if (computer.choice_string === "Scissors") 
+            {
+                winObj.winner = `You lost!`;
+                winObj.loser = 'HUM'
+                visualizeComputerChoice(computer);
+                return winObj;
+            }
+            break;
+        case "Scissors":
+            if (computer.choice_string === "Paper") 
+            {
+                winObj.winner = `You win!`
+                winObj.loser = 'COMP'
+                visualizeComputerChoice(computer);
+                return winObj;
+            }
+            if (computer.choice_string === "Rock") {
+                winObj.winner = `You lost!`
+                winObj.loser = 'HUM'
+                visualizeComputerChoice(computer);
+                return winObj;
+            }
+            break;
+        default:
+            console.log("issue in winConditions");
+    }
 }
 
 
-*/
+// STARTSCREEN FUNCTIONS ----------------------------------------------
+
+function removeStartScreen_YES() {
+    const startscreen = document.querySelector('.startscreen');
+    const noOtherWayAround = () => startscreen.style.display = 'none';
+    setTimeout(noOtherWayAround,500);
+}
+
+function removeStartScreen_NO() {
+    const startscreen = document.querySelector('.startscreen');
+
+    const delete_Buttons = () =>
+        startscreen.textContent = "OK, bye then :(";
+
+    setTimeout(delete_Buttons, 500);
+}
+
+const yes_button = document.querySelector('.yes');
+yes_button.addEventListener('focus', removeStartScreen_YES);
+
+const no_button = document.querySelector('.no');
+no_button.addEventListener('focus', removeStartScreen_NO);
+
+
+// GAME FUNCTIONS ----------------------------------------------
+
+const showScores = function(human, computer) {
+    let playerScore = document.getElementById('pScore');
+    let computerScore = document.getElementById('cScore');
+
+    playerScore.textContent = `Player lives: ${human}`;
+    computerScore.textContent = `Computer lives: ${computer}`;
+}
+
+function announceRoundWinner(player, winObj) {
+    const main_container = document.querySelector('.main-container');
+    const annDiv = document.createElement('div');
+    annDiv.classList.add('animation','player');
+    annDiv.classList.add(`${player.choice_class}`);
+    const textDiv = document.createElement('div');
+    textDiv.textContent = `${winObj.winner}!`;
+    annDiv.appendChild(textDiv);
+    main_container.appendChild(annDiv);
+}
+
+const resetAnimations = () => {
+    const animDivs = document.getElementsByClassName("animation");
+    const l = animDivs.length;
+    for (let i = 0; i < l; i++)
+    {
+        animDivs[i].remove();
+        animDivs[i].remove();
+    }
+}
+
+const runGame =  (human) => 
+{   
+    
+    const computerChoiceObject = computerChoice();
+    showScores(HUMAN_SCORE, COMP_SCORE);
+    const winObj = winConditions(human.choice_name, computerChoiceObject);
+    announceRoundWinner(human, winObj);
+    decrementScore(winObj.loser);
+    showScores(HUMAN_SCORE, COMP_SCORE);
+    setTimeout(resetAnimations, 1000);
+
+    if (HUMAN_SCORE === 0 || COMP_SCORE === 0)
+    {
+        setTimeout(endGame(HUMAN_SCORE, COMP_SCORE), 500);
+    }
+}
+
+// END GAME ----------------------------------------------
+function endGame(h,c)
+{
+    const you = "You";
+    const comp = "Computer";
+    const endGameDiv = document.createElement('div');
+    const body = document.querySelector('body');
+    const main_container = document.querySelector('.main-container');
+    endGameDiv.classList.add('end-screen');
+    endGameDiv.setAttribute('style', 'white-space: pre');
+    endGameDiv.textContent = `The game is over!\r\n${h>c?you:comp} won with ${h>c?h:c} point(s) left!\r\nIf you wish to play again, refresh the page :)`;
+    main_container.style.display = 'none';
+    body.appendChild(endGameDiv);
+}
+
+
+
+
+makeChoice();
