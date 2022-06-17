@@ -21,7 +21,6 @@
 body {
     width: 100%;
     min-height: 100vh;
-    margin: 0;
     font-family: 'Kdam Thmor Pro', sans-serif;
     background-color: whitesmoke;
     color: var(--font-color);
@@ -34,13 +33,12 @@ body {
     top: 0;
     left: 0;
     background-color: var(--darker-green);
-    display: none;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     font-size: 1.3rem;
-    z-index: 999;
-    transition: all 0.3s linear;
+    z-index: 2;
 }
 
 .btn-wrapper {
@@ -91,6 +89,15 @@ body {
     z-index: 1;
 }
 
+.main-container .player {
+    justify-self: end;
+}
+
+.main-container .computer {
+    justify-self: start;
+}
+
+
 .header { 
     padding-top: 0.2em;
     justify-self: center;
@@ -110,16 +117,10 @@ body {
 }
 
 .interactiveImg:hover {
-    border: 3px solid var(--darker-green);
+    border: 3px solid var(--beige);
     border-radius: 25px;
     padding: 0.4em;
 
-}
-
-.perma-border {
-    border: 2px solid var(--darker-green);
-    border-radius: 25px;
-    padding: 0.4em;
 }
 
 .Rock {
@@ -197,38 +198,38 @@ body {
     background-color: whitesmoke;
     height: 100px;
     width: 30vw;
-    margin-right: 1em;
     border-radius: 25px;
     color:rgb(188, 76, 76);
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--step--1);
 }
 
 .computer-rock {
     grid-area: 2 / 4 / 3 / 6;
-    padding-top: 1.5rem;    
 }
 
 .computer-paper {
     grid-area: 3 / 4 / 4 / 6;
-    padding-top: 1.5rem;
 }
 
 .computer-scissors {
     grid-area: 4 / 4 / 5 / 6;
-    padding-top: 1.5rem;
 }
 
 .player {
-    border: 2px solid var(--beige);
+    border: 2px solid var(--darker-green);
     background-color: whitesmoke;
     height: 100px;
     width: 35vw;
-    font-size: var(--step--2);
-    margin-left: 1em;
     border-radius: 25px; 
     color: var(--darker-green);
-    font-size: medium;
-    text-align: center;
+    font-size: var(--step-0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .player-rock {
@@ -242,3 +243,37 @@ body {
 .player-scissors {
     grid-area: 4 / 1 / 5 / 3;
 }
+
+.end-screen {
+    height: 100vh;
+    width:  100%;
+    background-color: var(--beige);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--darker-green);
+    padding: 3rem;
+    text-align: center;
+    font-size: var(--step-2);
+}
+
+@media (max-width: 680px) {
+    .end-screen{
+        font-size: var(--step-0);
+    }
+
+    .player {
+        width: 25vw;
+        font-size: var(--step--2);
+    }
+
+    .computer {
+        width: 25vw;
+        font-size: var(--step--2);
+    }
+}
+
+@media (max-width: 420px) {
+    .end-screen{
+        font-size: var(--step--1);
+    }
